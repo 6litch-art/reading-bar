@@ -1,0 +1,12 @@
+
+#reading-bar {
+    background-color: #FF0000;
+    width: var(--scroll);
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 2px;
+    z-index: 9;
+    display: block;
+    transition: width 1s;
+}
