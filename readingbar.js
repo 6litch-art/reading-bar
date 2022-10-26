@@ -68,13 +68,16 @@
 		isReady = true;
 		dispatchEvent(new Event('readingbar:ready'));
 
+		$(window).one('onbeforeunload.readingbar', __delete__, false);
+		$(window).on('scroll.readingbar', __main__);
+
 		return this;
     };
 
 	function __delete__(e) {
 
 		$(Settings["element"]).remove();
-		$(window).off('scroll', __main__);
+		$(window).off('scroll.readingbar');
 	}
 
     function __main__(e) {
@@ -98,7 +101,5 @@
 		$(Settings["element"]).css('--scroll', scroll + '%');
 	}
 
-    $(window).one('onbeforeunload', __delete__, false);
-    $(window).on('scroll', __main__);
     return ReadingBar;
 });
