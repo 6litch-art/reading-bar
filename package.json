@@ -1,6 +1,6 @@
 {
   "name": "@glitchr/reading-bar",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Reading bar tool",
   "main": "src/index.js",
   "access": "public",
