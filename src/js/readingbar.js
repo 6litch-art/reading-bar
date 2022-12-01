@@ -102,5 +102,12 @@
 		$(Settings["element"]).css('--scroll', scroll + '%');
 	}
 
+
+    $(window).on("load.readingbar", function() {
+
+		var readingBarEl = $(".reading-bar").length;
+        if (readingBarEl > 0) ReadingBar.ready();
+    });
+
     return ReadingBar;
 });
