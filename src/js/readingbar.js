@@ -11,10 +11,10 @@
 
 })(this, function () {
 
-    var ReadingBar = window.ReadingBar = {};
+    const ReadingBar = window.ReadingBar = {};
         ReadingBar.version = '0.1.0';
 
-    var Settings = ReadingBar.settings = {
+    const Settings = ReadingBar.settings = {
 		"id"        : "reading-bar",
 		"classname" : null,
 		"container" : "body",
@@ -24,11 +24,11 @@
 		"element": undefined,
     };
 
-    var isReady = false;
+    let isReady = false;
 
     ReadingBar.configure = function (options) {
 
-        var key, value;
+        let key, value;
         for (key in options) {
             value = options[key];
             if (value !== undefined && options.hasOwnProperty(key)) Settings[key] = value;
@@ -42,7 +42,7 @@
 		Settings["offset"] = $(el).position().top;
 	}
 
-	ReadingBar.removeExtraHeight = function(el) {
+	ReadingBar.removeExtraHeight = function(el) {
 
 		Settings["extraHeight"] = 0;
 		if( $(el).length ) {
@@ -57,7 +57,7 @@
 		ReadingBar.setOffset();
         ReadingBar.configure(options);
 
-		el = document.createElement("div");
+		let el = document.createElement("div");
 		$(el).attr("id", Settings["id"]);
 
 		if(Settings["classname"] !== null)
@@ -69,7 +69,7 @@
 		isReady = true;
 		dispatchEvent(new Event('readingbar:ready'));
 
-		$(window).one('onbeforeunload.readingbar', __delete__, false);
+		$(window).one('beforeunload.readingbar', __delete__, false);
 		$(window).on('scroll.readingbar', __main__);
 
 		return this;
@@ -84,7 +84,7 @@
     function __main__(e) {
 
 		if( !isReady ) return;
-		if(  isReady && typeof(Settings["element"]) === undefined) {
+		if(  isReady && typeof Settings["element"] === "undefined") {
 
 			dispatchEvent(new Event('readingbar:idle'));
 			isReady = false;
@@ -92,12 +92,12 @@
 			return;
 		}
 
-		var element = document.documentElement;
-		var body = document.body;
+		const element = document.documentElement;
+		const body = document.body;
 
-		var scrollNum = (element.scrollTop||body.scrollTop) - Settings["offset"];
-		var scrollDen = (element.scrollHeight||body.scrollHeight) - element.clientHeight - Settings["offset"] - Settings["extraHeight"];
-		var scroll = (scrollDen ? scrollNum / scrollDen * 100 : 0);
+		const scrollNum = (element.scrollTop||body.scrollTop) - Settings["offset"];
+		const scrollDen = (element.scrollHeight||body.scrollHeight) - element.clientHeight - Settings["offset"] - Settings["extraHeight"];
+		const scroll = (scrollDen ? scrollNum / scrollDen * 100 : 0);
 
 		$(Settings["element"]).css('--scroll', scroll + '%');
 	}
@@ -105,7 +105,7 @@
 
     $(window).on("load.readingbar", function() {
 
-		var readingBarEl = $(".reading-bar").length;
+		const readingBarEl = $(".reading-bar").length;
         if (readingBarEl > 0) ReadingBar.ready();
     });
 
