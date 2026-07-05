@@ -69,7 +69,12 @@
 		isReady = true;
 		dispatchEvent(new Event('readingbar:ready'));
 
-		$(window).one('beforeunload.readingbar', __delete__, false);
+		// NB: no third argument — this is jQuery .one(), not addEventListener().
+		// A trailing `false` (useCapture-style) makes jQuery treat __delete__ as
+		// event *data* and `false` as the handler, which jQuery replaces with an
+		// internal `return false` function — and a beforeunload handler returning
+		// false triggers the browser's "leave this page?" confirmation dialog.
+		$(window).one('beforeunload.readingbar', __delete__);
 		$(window).on('scroll.readingbar', __main__);
 
 		return this;
